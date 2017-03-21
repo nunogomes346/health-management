@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Need Emergency Contacts</title>
+        
+        <style>
+            .noBorders.ui-panelgrid>*>tr, .noBorders.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+            
+            .ui-button-text {
+                padding: 5px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Emergency Contacts from Need "#{caregiverManager.currentNeed.description}"</h2>
+        
+        <h:form>
+            <p:dataTable
+                id="emergencyContactsTable"
+                var="emergencyContact"
+                summary="Table of emergencyContacts"
+                value="#{caregiverManager.needEmergencyContactsREST}"
+                widgetVar="emergencyContactsTable"
+                emptyMessage="No emergency contacts found"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Emergency Contacts" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Description">
+                    <h:outputText value="#{emergencyContact.description}" />
+                </p:column>
+                
+                <p:column headerText="Name">
+                    <h:outputText value="#{emergencyContact.name}" />
+                </p:column>
+                
+                <p:column headerText="Telephone Number">
+                    <h:outputText value="#{emergencyContact.telephoneNumber}" />
+                </p:column>
+                
+                <p:column headerText="Proceedings" style="width: 10%">
+                    <p:commandButton value="Done"
+                                     id="done"
+                                     actionListener="#{caregiverManager.createProceedingREST}">
+                        <f:param name="materialId" id="materialId" value="#{emergencyContact.id}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+                        
+            <br />
+            
+            <p:commandButton value="Back" id="BackButton" action="/caregiver/caregiver_patient_needs?faces-redirect=true" />
+        </h:form>    
+    </h:body>
+</html>
+

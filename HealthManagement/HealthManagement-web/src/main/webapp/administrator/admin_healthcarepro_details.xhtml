@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Healthcare Professional Details</title>
+    </h:head>
+    <h:body>
+        <h2 name="title">Details of Healthcare Profissional #{administratorManager.currentHealthcarePro.username}</h2>
+        
+        <h:panelGrid columns="2">
+            <p:outputLabel for="username" value="Username: " />
+            <p:outputLabel id="username" value="#{administratorManager.currentHealthcarePro.username}"/>
+
+            <p:outputLabel for="name" value="Name: " />
+            <p:outputLabel id="name" value="#{administratorManager.currentHealthcarePro.name}"/>
+
+            <p:outputLabel for="mail" value="Mail: " />
+            <p:outputLabel id="mail" value="#{administratorManager.currentHealthcarePro.mail}"/>
+            
+            <p:outputLabel for="facility" value="Facility: " />
+            <p:outputLabel id="facility" value="#{administratorManager.currentHealthcarePro.facility}"/>
+            
+            <p:outputLabel for="job" value="Job: " />
+            <p:outputLabel id="job" value="#{administratorManager.currentHealthcarePro.job}"/>
+        </h:panelGrid>
+        
+        <h:form>
+            <p:commandButton value="Back" id="BackButton" action="/administrator/admin_index?faces-redirect=true" />
+        </h:form>
+    </h:body>
+</html>
+

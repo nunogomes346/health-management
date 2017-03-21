@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Manage Caregiver Patients</title>
+        
+        <style>
+            .noBorders.ui-panelgrid>*>tr, .noBorders.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+            
+            .ui-button-text {
+                padding: 5px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Caregiver patients</h2>
+        <h:form id="caregiverPatients">
+            <p:dataTable
+                id="associatedPatientsTable"
+                var="patient"
+                summary="Table of patients"
+                value="#{healthcareProManager.caregiverPatients}"
+                widgetVar="associatedPatientsTable"
+                emptyMessage="No patients associated"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Associated patients" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Name">
+                    <h:outputText value="#{patient.name}" />
+                </p:column>
+                
+                <p:column headerText="Mail">
+                    <h:outputText value="#{patient.mail}" />
+                </p:column>
+                
+                <p:column headerText="Actions"  style="width: 10%">
+                    <p:commandButton value="Diassociate"
+                                     id="diassociate"
+                                     actionListener="#{healthcareProManager.diassociatePatientFromCaregiver}"
+                                     update="associatedPatientsTable :caregiverPatients:diassociatedPatientsTable">
+                        <f:param name="patientId" id="patientId" value="#{patient.id}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            
+            <br />
+            
+            <p:dataTable
+                id="diassociatedPatientsTable"
+                var="patient"
+                summary="Table of patients"
+                value="#{healthcareProManager.caregiverNotPatients}"
+                widgetVar="diassociatedPatientsTable"
+                emptyMessage="No patients diassociated"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Diassociated patients" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Name">
+                    <h:outputText value="#{patient.name}" />
+                </p:column>
+                
+                <p:column headerText="Mail">
+                    <h:outputText value="#{patient.mail}" />
+                </p:column>
+                
+                <p:column headerText="Actions"  style="width: 10%">
+                    <p:commandButton value="Associate"
+                                     id="associate"
+                                     actionListener="#{healthcareProManager.associatePatientToCaregiver}"
+                                     update="diassociatedPatientsTable  :caregiverPatients:associatedPatientsTable">
+                        <f:param name="patientId" id="patientId" value="#{patient.id}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            
+            <p:commandButton value="Back" id="BackButton" action="/healthcarePro/healthcarePro_index?faces-redirect=true" />
+        </h:form>
+        
+    </h:body>
+</html>
+

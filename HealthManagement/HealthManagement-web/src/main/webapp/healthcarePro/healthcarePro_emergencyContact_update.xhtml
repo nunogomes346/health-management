@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Update Emergency Contact</title>
+    </h:head>
+    <h:body>
+        <h2 name="title">Update Information for Emergency Contact</h2>
+        
+        <h:form>
+            <h:panelGrid id="updateGrid" columns="3">
+                <p:outputLabel for="description" value="Description: " />
+                <p:inputText 
+                    id="description"
+                    size="30"
+                    required="true"
+                    requiredMessage=" Description is required."
+                    value="#{healthcareProManager.currentEmergencyContact.description}" />
+                <p:message for="description" display="text" />                  
+
+                <p:outputLabel for="name" value="Name: " />
+                <p:inputText 
+                    id="name"
+                    size="30"
+                    required="true"
+                    requiredMessage=" Name is required."                            
+                    value="#{healthcareProManager.currentEmergencyContact.name}" />
+                <p:message for="name" display="text" />
+
+                <p:outputLabel for="telephoneNumber" value="Telephone Number: " />
+                <p:inputText
+                    id="telephoneNumber"
+                    size="30"
+                    required="true"
+                    requiredMessage=" Telephone Number is required."                            
+                    value="#{healthcareProManager.currentEmergencyContact.telephoneNumber}" />    
+                <p:message for="telephoneNumber" display="text" />
+                
+                <p:commandButton
+                    id="update"
+                    value="Update"
+                    binding="#{healthcareProManager.component}" 
+                    action="#{healthcareProManager.updateEmergengyContact}" 
+                    update="updateGrid"/>
+                <p:message for="update" display="text" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

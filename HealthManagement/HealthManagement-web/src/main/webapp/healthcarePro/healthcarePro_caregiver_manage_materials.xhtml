@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Manage Caregiver Materials</title>
+        
+        <style>
+            .noBorders.ui-panelgrid>*>tr, .noBorders.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+            
+            .ui-button-text {
+                padding: 5px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Materials from Caregiver "#{healthcareProManager.currentCaregiver.username}"</h2>
+        <h:form>
+            <p:dataTable
+                id="associatedPatientsNeedsTable"
+                var="need"
+                summary="Table of Caregiver Patients Needs"
+                value="#{healthcareProManager.caregiverPatientsNeeds}"
+                widgetVar="associatedPatientsNeedsTable"
+                emptyMessage="No needs from patients associated"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Patients Needs" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Description">
+                    <h:outputText value="#{need.description}" />
+                </p:column>
+                
+                <p:column headerText="Actions"  style="width: 10%">
+                    <p:commandButton value="Materials"
+                                     id="materials"
+                                     action="healthcarePro_caregiver_patients_needs_materials?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{healthcareProManager.currentNeed}" value="#{need}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            
+            <br />
+            
+            <p:dataTable
+                id="caregiverMaterialsTable"
+                var="material"
+                summary="Table of Caregiver Materials"
+                value="#{healthcareProManager.caregiverMaterials}"
+                widgetVar="caregiverMaterialsTable"
+                emptyMessage="No materials associated"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Caregiver Materials" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Description">
+                    <h:outputText value="#{material.description}" />
+                </p:column>
+                
+                <p:column headerText="Type">
+                    <h:outputText value="#{material.type}" />
+                </p:column>
+                
+                <p:column headerText="Actions"  style="width: 10%">
+                    <p:commandButton value="Diassociate"
+                                     id="diassociate"
+                                     actionListener="#{healthcareProManager.diassociateMaterialFromCaregiver}"
+                                     update="caregiverMaterialsTable">
+                        <f:param name="materialId" id="materialId" value="#{material.id}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            
+            <br />
+            
+            <h2>Associate Material</h2>               
+            <h:panelGrid columns="3">
+                <p:outputLabel for="need" value="Need: " />
+                <p:selectOneMenu
+                    id="need"
+                    value="#{healthcareProManager.needId}" >
+                    <f:selectItems
+                        value="#{healthcareProManager.caregiverPatientsNeeds}"
+                        var="need"
+                        itemValue="#{need.id}"
+                        itemLabel="#{need.description}" />
+                </p:selectOneMenu>
+                
+                <br /><br />
+                
+                <p:outputLabel for="material" value="Material: " />
+                <p:selectOneMenu
+                    id="material"
+                    value="#{healthcareProManager.materialId}" >
+                    <f:selectItems
+                        value="#{healthcareProManager.allMaterials}"
+                        var="material"
+                        itemValue="#{material.id}"
+                        itemLabel="#{material.description}" />
+                </p:selectOneMenu>
+                
+                <br /> <br />
+
+                <p:commandButton
+                    id="associate"
+                    value="Associate"
+                    binding="#{healthcareProManager.component}" 
+                    action="#{healthcareProManager.associateMaterial}" 
+                    update="caregiverMaterialsTable"/>
+                <p:message for="associate" display="text"/>
+            </h:panelGrid >
+            
+            <br />
+            
+            <h:panelGrid columns="1">
+                <p:commandButton value="Back" id="BackButton" action="/healthcarePro/healthcarePro_index?faces-redirect=true" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

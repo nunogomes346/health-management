@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Update Administrator</title>
+    </h:head>
+    <h:body>
+        <h2 name="title">Update Information for Administrator #{administratorManager.currentAdministrator.username}</h2>
+        
+        <h:form>
+            <h:panelGrid id="updateGrid" columns="3">
+                <p:outputLabel for="password" value="Password: " />
+                <p:password
+                    id="password"
+                    size="30"
+                    required="true"
+                    requiredMessage=" Password is required."
+                    value="#{administratorManager.currentAdministrator.password}"/>
+                <p:message for="password" display="text" /> 
+                
+                <p:outputLabel for="name" value="Name: " />
+                <p:inputText 
+                    id="name"
+                    size="30"
+                    required="true"
+                    requiredMessage=" Name is required."                            
+                    value="#{administratorManager.currentAdministrator.name}" />
+                <p:message for="name" display="text" />
+
+                <p:outputLabel for="mail" value="Mail: " />
+                <p:inputText
+                    id="mail"
+                    size="30"
+                    required="true"
+                    requiredMessage=" Mail is required."                            
+                    value="#{administratorManager.currentAdministrator.mail}"
+                    validatorMessage="Incorrect mail format" >
+                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                </p:inputText>    
+                <p:message for="mail" display="text" />
+                
+                <p:commandButton
+                    id="update"
+                    value="Update"
+                    binding="#{administratorManager.component}" 
+                    action="#{administratorManager.updateAdministrator}" 
+                    update="updateGrid"/>
+                <p:message for="update" display="text" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

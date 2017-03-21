@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>My Patients</title>
+        
+        <style>
+            .noBorders.ui-panelgrid>*>tr, .noBorders.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+            
+            .ui-button-text {
+                padding: 5px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h1>Welcome #{userManager.username}</h1>
+        
+        <br />
+        
+        <h:form>
+            <p:dataTable
+                id="patientsTable"
+                var="patient"
+                summary="Table of patients"
+                value="#{caregiverManager.caregiversPatientsREST}"
+                widgetVar="patientsTable"
+                emptyMessage="No patients found with given criteria" 
+                filteredValue="#{caregiverManager.filteredPatients}"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel style="text-align:center;">
+                        <h:outputText value="My Patients" />
+                    </p:outputPanel>
+                    
+                    <p:outputPanel style="text-align:right;">
+                        <h:outputText value="Search all fields:" />
+                        <p:inputText id="globalFilter" onkeyup="PF('patientsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column filterBy="#{patient.name}" headerText="Name" filterMatchMode="contains">
+                    <h:outputText value="#{patient.name}" />
+                </p:column>
+                
+                <p:column filterBy="#{patient.mail}" headerText="Mail" filterMatchMode="contains">
+                    <h:outputText value="#{patient.mail}" />
+                </p:column>
+                
+                <p:column headerText="Actions"  style="width: 25%">
+                    <p:panelGrid columns="2" styleClass="noBorders">
+                        <p:commandButton value="Needs" 
+                                         id="needs" 
+                                         action="caregiver_patient_needs?faces-redirect=true"
+                                         oncomplete="PF('patientsTable').clearFilters()">
+                            <f:setPropertyActionListener target="#{caregiverManager.currentPatient}" value="#{patient}" />
+                        </p:commandButton>
+
+                        <p:commandButton value="Proceedings" 
+                                         id="proceedings"
+                                         action="caregiver_patient_proceedings?faces-redirect=true"
+                                         oncomplete="PF('patientsTable').clearFilters()">
+                            <f:setPropertyActionListener target="#{caregiverManager.currentPatient}" value="#{patient}" />
+                        </p:commandButton>
+                    </p:panelGrid>
+                </p:column>
+            </p:dataTable>
+                        
+            <br />
+            
+            <p:commandButton value="Logout" id="Logout" action="#{userManager.logout}" />
+        </h:form>
+    </h:body>
+</html>
+

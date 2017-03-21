@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.mycompany_HealthManagement-ejb_ejb_1.0-SNAPSHOTPU" transaction-type="JTA">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entities.User</class>
+    <class>entities.UserGroup</class>
+    <class>entities.Administrator</class>
+    <class>entities.Caregiver</class>
+    <class>entities.HealthcarePro</class>
+    <class>entities.Patient</class>
+    <class>entities.Counter</class>
+    <class>entities.EmergencyContact</class>
+    <class>entities.FAQ</class>
+    <class>entities.Material</class>
+    <class>entities.MaterialGroup</class>
+    <class>entities.Need</class>
+    <class>entities.Proceeding</class>
+    <class>entities.Text</class>
+    <class>entities.Tutorial</class>
+    <class>entities.Video</class>
+    <jta-data-source>java:/jboss/datasources/HealthManagement</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>

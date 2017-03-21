@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Patient Needs</title>
+        
+        <style>
+            .noBorders.ui-panelgrid>*>tr, .noBorders.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+            
+            .ui-button-text {
+                padding: 5px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Needs from Patient "#{caregiverManager.currentPatient.name}"</h2>
+        <h:form>
+            <p:dataTable
+                id="patientNeeds"
+                var="need"
+                summary="Table of Patient Needs"
+                value="#{caregiverManager.caregiverPatientsNeedsREST}"
+                widgetVar="patientNeeds"
+                emptyMessage="No needs from patient"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Needs" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Description">
+                    <h:outputText value="#{need.description}" />
+                </p:column>
+                
+                <p:column headerText="Materials"  style="width: 50%">
+                    <p:commandButton value="Emergency Contacts" 
+                                     id="emergency" 
+                                     action="caregiver_patient_need_material_emergency_contact?faces-redirect=true"
+                                     style="width: 200px">
+                        <f:setPropertyActionListener target="#{caregiverManager.currentNeed}" value="#{need}" />
+                    </p:commandButton>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="FAQs" 
+                                     id="faq" 
+                                     action="caregiver_patient_need_material_faq?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{caregiverManager.currentNeed}" value="#{need}" />
+                    </p:commandButton>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Texts" 
+                                     id="text" 
+                                     action="caregiver_patient_need_material_text?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{caregiverManager.currentNeed}" value="#{need}" />
+                    </p:commandButton>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Tutorials" 
+                                     id="tutorial" 
+                                     action="caregiver_patient_need_material_tutorial?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{caregiverManager.currentNeed}" value="#{need}" />
+                    </p:commandButton>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:commandButton value="Videos" 
+                                     id="video" 
+                                     action="caregiver_patient_need_material_video?faces-redirect=true">
+                        <f:setPropertyActionListener target="#{caregiverManager.currentNeed}" value="#{need}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            
+            <br />
+            
+            <p:commandButton value="Back" id="BackButton" action="/caregiver/caregiver_index?faces-redirect=true" />
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Need Materials</title>
+        
+        <style>
+            .noBorders.ui-panelgrid>*>tr, .noBorders.ui-panelgrid .ui-panelgrid-cell {
+                border: none;
+            }
+            
+            .ui-button-text {
+                padding: 5px !important;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <h2>Materials from Need "#{healthcareProManager.currentNeed.description}"</h2>
+        <h:form>
+            <p:dataTable
+                id="associatedPatientNeedMaterialsTable"
+                var="material"
+                summary="Table of Caregiver Patient Need Materials"
+                value="#{healthcareProManager.caregiverPatientsNeedsMaterial}"
+                widgetVar="associatedPatientNeedMaterialsTable"
+                emptyMessage="No materials of need from patient associated"
+                rows="10"
+                paginator="true"
+                paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                rowsPerPageTemplate="5,10,15"
+                style="margin-bottom:40px">
+                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Need Materials" />
+                    </p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Description">
+                    <h:outputText value="#{material.description}" />
+                </p:column>
+                
+                <p:column headerText="Type">
+                    <h:outputText value="#{material.type}" />
+                </p:column>
+            </p:dataTable>
+            
+            <br />
+            
+            <p:commandButton value="Back" id="BackButton" action="/healthcarePro/healthcarePro_caregiver_manage_materials?faces-redirect=true" />
+        </h:form>
+    </h:body>
+</html>
+

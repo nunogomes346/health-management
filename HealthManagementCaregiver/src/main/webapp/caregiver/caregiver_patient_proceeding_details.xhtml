@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Proceeding Details</title>
+    </h:head>
+    <h:body>
+        <h2 name="title">Details for Proceeding</h2>
+        
+        <h:panelGrid columns="2">
+            <p:outputLabel for="caregiver" value="Caregiver: " />
+            <p:outputLabel id="caregiver" value="#{caregiverManager.currentProceeding.caregiverUsername}"/>
+
+            <p:outputLabel for="patient" value="Patient: " />
+            <p:outputLabel id="patient" value="#{caregiverManager.currentProceeding.patientName}"/>
+
+            <p:outputLabel for="need" value="Need: " />
+            <p:outputLabel id="need" value="#{caregiverManager.currentProceeding.needDescription}"/>
+            
+            <p:outputLabel for="material" value="Material: " />
+            <p:outputLabel id="material" value="#{caregiverManager.currentProceeding.materialDescription}"/>
+            
+            <p:outputLabel for="date" value="Date: " />
+            <p:outputLabel id="date" value="#{caregiverManager.currentProceeding.proceedingDate}"/>
+            
+            <p:outputLabel for="note" value="Note: " rendered="#{caregiverManager.currentProceeding.note != null}"/>
+            <p:outputLabel id="note" value="#{caregiverManager.currentProceeding.note}"  rendered="#{caregiverManager.currentProceeding.note != null}"/>
+        </h:panelGrid>
+        
+        <h:form>                
+            <p:commandButton value="Back" id="BackButton" action="/caregiver/caregiver_patient_proceedings?faces-redirect=true" />
+        </h:form>
+    </h:body>
+</html>
+

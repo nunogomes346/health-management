@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Update Tutorial</title>
+    </h:head>
+    <h:body>
+        <h2 name="title">Update Information for Tutorial</h2>
+        
+        <h:form>
+            <h:panelGrid id="updateGrid" columns="3">
+                <p:outputLabel for="description" value="Description: " />
+                <p:inputText 
+                    id="description"
+                    size="40"
+                    required="true"
+                    requiredMessage=" Description is required."
+                    value="#{administratorManager.currentTutorial.description}" />
+                <p:message for="description" display="text" />                  
+
+                <p:outputLabel for="text" value="Text: " />
+                <p:inputTextarea 
+                    id="text"
+                    rows="10"
+                    cols="40"
+                    required="true"
+                    requiredMessage=" Text is required."                            
+                    value="#{administratorManager.currentTutorial.text}" />
+                <p:message for="text" display="text" />
+                
+                <p:commandButton
+                    id="update"
+                    value="Update"
+                    binding="#{administratorManager.component}" 
+                    action="#{administratorManager.updateTutorial}" 
+                    update="updateGrid"/>
+                <p:message for="update" display="text" />
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

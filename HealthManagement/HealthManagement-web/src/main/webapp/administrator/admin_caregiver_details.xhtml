@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Caregiver Details</title>
+    </h:head>
+    <h:body>
+        <h2 name="title">Details of Caregiver #{administratorManager.currentCaregiver.username}</h2>
+        
+        <h:panelGrid columns="2">
+            <p:outputLabel for="username" value="Username: " />
+            <p:outputLabel id="username" value="#{administratorManager.currentCaregiver.username}"/>
+
+            <p:outputLabel for="name" value="Name: " />
+            <p:outputLabel id="name" value="#{administratorManager.currentCaregiver.name}"/>
+
+            <p:outputLabel for="mail" value="Mail: " />
+            <p:outputLabel id="mail" value="#{administratorManager.currentCaregiver.mail}"/>
+        </h:panelGrid>
+        
+        <h:form>                
+            <p:commandButton value="Back" id="BackButton" action="/administrator/admin_index?faces-redirect=true" />
+        </h:form>
+    </h:body>
+</html>
+

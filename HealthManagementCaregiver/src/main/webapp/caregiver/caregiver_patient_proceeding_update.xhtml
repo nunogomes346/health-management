@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Proceeding Update</title>
+    </h:head>
+    <h:body>
+        <h2>Update Proceeding</h2>
+        <h:form>                  
+            <h:panelGrid columns="3">
+                <p:outputLabel for="material" value="Material: " />
+                <p:selectOneMenu
+                    id="material"
+                    value="#{caregiverManager.currentProceeding.materialID}" >
+                    <f:selectItems
+                        value="#{caregiverManager.allMaterialsREST}"
+                        var="material"
+                        itemValue="#{material.id}"
+                        itemLabel="#{material.description}" />
+                </p:selectOneMenu>
+                <p:message for="material" display="text" />
+                
+                <p:outputLabel for="note" value="Note: " />
+                <p:inputTextarea
+                    id="note"
+                    rows="10"
+                    cols="40"
+                    value="#{caregiverManager.currentProceeding.note}"/>
+                <p:message for="note" display="text" />
+
+                <p:commandButton
+                    id="update"
+                    value="Update"
+                    binding="#{caregiverManager.component}" 
+                    action="#{caregiverManager.updateProceedingREST}" />
+                <p:message for="update" display="text"/>
+            </h:panelGrid >
+        </h:form>
+    </h:body>
+</html>
+

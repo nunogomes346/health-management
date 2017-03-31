@@ -55,11 +55,6 @@ nbactions.xml
 nb-configuration.xml
 
 ######################
-# Maven
-######################
-target/
-
-######################
 # IDEA
 ######################
 *.iml
@@ -102,9 +97,3 @@ derby.log
 # Liberty tools
 ######################
 .factorypath
-
-# Misc
-*.swp
-release.properties
-pom.xml.releaseBackup
-pom.xml.tag

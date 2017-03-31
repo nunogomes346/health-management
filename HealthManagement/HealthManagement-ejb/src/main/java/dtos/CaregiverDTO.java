@@ -29,8 +29,8 @@ public class CaregiverDTO extends UserDTO {
     public void setRate(String rate) {
         this.rate = rate;
     }
+ 
 
-    
     
     
     

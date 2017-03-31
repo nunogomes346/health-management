@@ -494,14 +494,15 @@ public class CaregiverBean {
     }
     
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    @Path("{username}/login")
-    public void caregiverLoginREST(@PathParam("username") String username) throws EntityDoesNotExistException{
+    @Produces("text/plain")
+    @Path("{username}")
+    public String caregiverLoginREST(@PathParam("username") String username) throws EntityDoesNotExistException{
+        //return "pub";
         try {
             Caregiver caregiver = em.find(Caregiver.class, username);
             if(caregiver == null){
                 throw new EntityDoesNotExistException("There is no caregiver with that username.");
-            }            
+            }
             
             List<Counter> counters = (List<Counter>) em.createNamedQuery("getAllCountersCaregiverResource")
                     .setParameter("caregiverUsername", caregiver.getUsername())
@@ -511,11 +512,16 @@ public class CaregiverBean {
             counters.get(0).incrementCounter();
 
             em.merge(counters.get(0));
+            
+            return caregiver.getSecurityToken();
+           
+            
         } catch (EntityDoesNotExistException e) {
             throw e;             
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
         }
+
     }
     
     @GET
@@ -562,6 +568,26 @@ public class CaregiverBean {
             
             return needBean.needsToDTOs(needs);
         }catch (EntityDoesNotExistException | PatientNotInPatientsException e) {
+            throw e;             
+        } catch (Exception e) {
+            throw new EJBException(e.getMessage());
+        }
+    }
+    
+    @GET
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Path("{username}/materials")
+    public List<MaterialDTO> getCaregiverAllMaterialsREST(@PathParam("username") String username) throws EntityDoesNotExistException{
+        try {
+            Caregiver caregiver = em.find(Caregiver.class, username);
+            if(caregiver == null){
+                throw new EntityDoesNotExistException("There is no caregiver with that username.");
+            }
+            
+            Patient patient = caregiver.getPatients().get(0);
+            
+            return getCaregiverMaterials(username);
+        } catch (EntityDoesNotExistException e) {
             throw e;             
         } catch (Exception e) {
             throw new EJBException(e.getMessage());
